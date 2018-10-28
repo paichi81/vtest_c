@@ -1,3 +1,5 @@
+// 共用する部分
+
 import axios from 'axios'
 import moment from 'moment'
 

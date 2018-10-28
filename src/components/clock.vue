@@ -1,40 +1,31 @@
 <template lang="pug">
 .clock
   span.hour {{hh}}
-  span(:class="isEven ? 'is-white' : 'is-black' ") :
+  span(:class="isEven ? 'is-white' : 'is-black'") :
   span.min {{mm}}
 </template>
 
 <script>
+import sharedLib from '../Shared.js'
+
 export default {
   name: 'Clock',
+  mixins: [sharedLib],
   mounted () {
-    this.setDate()
-    setInterval(() => (this.setDate()), 1000)
+    setInterval( () => { this.getSecond() }, 1000 )
   },
   computed: {
-    hh () { return this.hours() },
-    mm () { return this.min() }
+    hh () { return this.$moment().format('hh') },
+    mm () { return this.$moment().format('mm') }
   },
   methods: {
-    formatTime (pp) { // 時刻ppを0埋めして返す
-      return ('0' + pp).slice(-2)
-    },
-    setDate () {
-      this.date = new Date()
-      this.isEven = (this.date.getSeconds() % 2 === 0)
-    },
-    hours () { return this.formatTime(this.date.getHours()) },
-    min () { return this.formatTime(this.date.getMinutes()) },
-    sec () { return this.formatTime(this.date.getSeconds()) }
+    getSecond () {
+      this.isEven = (this.$moment().second() % 2 === 0)
+    }
   },
   data () {
     return {
-      date: new Date(),
-      isEven: false,
-      year: '====',
-      mon: '==',
-      day: '=='
+      isEven: false
     }
   }
 }
@@ -43,7 +34,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus">
 .is-black { color: #000 }
-.is-white{ color: #fff }
+.is-white { color: #fff }
 
 .clock {
   font-size: 14pt
