@@ -2,11 +2,18 @@
 .cartIcon
   v-badge.myBadge(v-model='dispQty',overlap,left,bottom,:color='dispBadgeColor')
     span(slot='badge') {{manjuQty}}
-    v-btn(fab,:color='icon_color',depressed,small,dark)
+    v-btn(fab,:color='icon_color',depressed,small,dark,@click="clearCart")
       v-icon fa-shopping-cart
 </template>
 
 <script>
+import {
+  // mapState,
+  mapGetters,
+  mapMutations
+  // mapActions
+} from 'vuex'
+
 export default {
   name: 'InfoCart',
   props: {
@@ -40,21 +47,33 @@ export default {
     dispBadgeColor () {
       let dispQty = ''
       // 999以下のときは親コンポーネントで指定された色,こえたら赤
-      if (this.$store.state.manju.qty < 999) {
+      if (this.manju.qty < 999) {
         dispQty = this.badge_color_org
       } else {
         dispQty = 'red'
       }
+      // if (this.$store.state.manju.qty < 999) {
+      //   dispQty = this.badge_color_org
+      // } else {
+      //   dispQty = 'red'
+      // }
       return dispQty
     },
     dispQty () {
       // badgeを非表示にするかどうか。0なら表示しない
-      return !(this.$store.state.manju.qty === 0)
-    }
+      return !(this.manju.qty === 0)
+      // return !(this.$store.state.manju.qty === 0)
+    },
+    ...mapGetters( ['manju'] )
   },
   filter: {
   },
   methods: {
+    clearCart () {
+      this.clearCart()
+      // this.$store.commit('clearCart')
+    },
+    ...mapMutations( [ 'clearCart' ] )
   }
 }
 </script>

@@ -44,6 +44,9 @@ const mutations = {
   manju_qty (state, qty) {
     console.log(qty + 'にしたで')
     state.manju.qty = qty
+  },
+  clearCart (state) {
+    state.manju.qty = 0
   }
 }
 

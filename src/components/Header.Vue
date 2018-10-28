@@ -4,6 +4,8 @@
     v-toolbar-side-icon
     v-toolbar-title(@click='logp') {{title}}
     v-spacer
+    v-toolbar-title() Header.vue
+    v-spacer
     v-toolbar-items
       v-layout.align-end
         v-flex

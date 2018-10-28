@@ -5,6 +5,7 @@
     v-layout
       v-flex
         .content
+          h2 Footer.vue
           span Copyright(c){{year}}
 </template>
 

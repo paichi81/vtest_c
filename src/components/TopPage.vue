@@ -2,7 +2,7 @@
 .toppage
   MyHeader()
   .body-content
-    MyEntryForm()
+    MyEntryForm(v-model='qty')
   MyFooter()
 </template>
 
@@ -14,9 +14,11 @@ export default {
   mixins: [sharedLib],
   data () {
     return {
+      qty: 0
     }
   },
   mounted () {
+    this.qty = this.$store.getters.manju.qty
     console.log(this.$store.getters.user)
     console.log(this.$store.getters.manju)
   },
